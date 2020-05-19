@@ -45,10 +45,10 @@ def get_model(params):
     a_probs = Permute((2, 1), name='attention_vec')(a)
     attention_out = multiply([lstm_out, a_probs])
     attention_out = Lambda(lambda x: K.sum(x, axis=1))(attention_out)
-    dropout2 = Dropout(params['drop_out_lstm'])(attention_out)
+    dropout3 = Dropout(params['drop_out_lstm'])(attention_out)
     dense_out = Dense(int(params['dense_unit']), activation='relu', 
     	kernel_initializer=params['kernel_initializer'], 
-    	kernel_regularizer=regularizers.l2(params['l2_reg']))(dropout2)
+    	kernel_regularizer=regularizers.l2(params['l2_reg']))(dropout3)
     output = Dense(1, activation='sigmoid')(dense_out)
     model = Model(input=[inputs], output=output)
     adam = Adam(lr=params['learning_rate'],epsilon=10**-8)

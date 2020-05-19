@@ -130,6 +130,10 @@ def main():
     dnn_model.load_weights('GM12878.bestmodel.hdf5')
     output_dir = 'motifs/'
     output_dir2 = 'motifs_logo/'
+    if not os.path.exists(output_dir):
+        os.mkdir(output_dir)
+    if not os.path.exists(output_dir2):
+        os.mkdir(output_dir2)
     num_motifs = get_motifs(dnn_model,X_test,Y_test,output_dir,output_dir2,0)
     num_motifs = get_motifs(dnn_model,X_test,Y_test,output_dir,output_dir2,1)
     get_motif_logo(output_dir2,num_motifs)
